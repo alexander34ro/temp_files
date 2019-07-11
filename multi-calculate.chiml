@@ -1,4 +1,4 @@
-ins: statement, x
+ins: x
 out: output
 vars:
   remoteUrl: '192:168:43:203:3000'
@@ -6,8 +6,8 @@ vars:
 do:
 
   - parallel:
-    - (remoteUrl, chain, statement, x) -> [$.send] -> fx
-    - (remoteUrl, chain, 'diff(' + statement + ')', x) -> [$.send] -> diff_fx
-    - (remoteUrl, chain, 'integrate(' + statement + ')', x) -> [$.send] -> int_fx
+    - (remoteUrl, chain, x) -> [$.send] -> fx_1
+    - (remoteUrl, chain, x) -> [$.send] -> fx_2
+    - (remoteUrl, chain, x) -> [$.send] -> fx_3
 
-  - (fx, '\n', diff_fx, '\n', int_fx) -> {$.concat} -> output
+  - (fx_1, '\n', fx_2, '\n', fx_3) -> {$.concat} -> output
